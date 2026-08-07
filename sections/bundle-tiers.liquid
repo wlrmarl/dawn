@@ -9,13 +9,40 @@
     </div>
     <div class="tiers">
       {% for block in section.blocks %}
-      <article class="glass tier {% if block.settings.is_best %}best{% endif %} rv {% if forloop.index == 2 %}rv-d2{% elsif forloop.index == 3 %}rv-d3{% endif %}">
+      <article class="glass tier {% if block.settings.is_best %}best{% endif %} rv {% if forloop.index == 2 %}rv-d2{% elsif forloop.index == 3 %}rv-d3{% endif %}" {{ block.shopify_attributes }}>
         <span class="tag">{{ block.settings.tag }}</span>
-        <div class="tierpix {% if block.settings.qty == '5' %}five{% endif %}" aria-hidden="true">
-          {{ block.settings.tierpix_html }}
+        
+        <div class="tierpix {% if block.settings.products.count >= 5 %}five{% endif %}" aria-hidden="true">
+          {% if block.settings.products != blank %}
+            {% for prod in block.settings.products %}
+              <img class="pimg" src="{{ prod.featured_image | image_url: width: 200 }}" alt="{{ prod.title | escape }}" style="height:100%; object-fit:contain;" loading="lazy">
+            {% endfor %}
+          {% else %}
+            {{ block.settings.tierpix_html }}
+          {% endif %}
         </div>
+        
         <div class="qty">{{ block.settings.qty }}<small>Products</small></div>
-        <div class="price">{{ block.settings.price }} <s>{{ block.settings.compare_at_price }}</s></div>
+        
+        {% assign total_price = 0 %}
+        {% assign total_compare = 0 %}
+        {% for prod in block.settings.products %}
+          {% assign total_price = total_price | plus: prod.price %}
+          {% if prod.compare_at_price > prod.price %}
+            {% assign total_compare = total_compare | plus: prod.compare_at_price %}
+          {% else %}
+            {% assign total_compare = total_compare | plus: prod.price %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if block.settings.products != blank %}
+          <div class="price">{{ total_price | money_without_trailing_zeros }} 
+            {% if total_compare > total_price %}<s>{{ total_compare | money_without_trailing_zeros }}</s>{% endif %}
+          </div>
+        {% else %}
+          <div class="price">{{ block.settings.price_fallback }} <s>{{ block.settings.compare_at_price_fallback }}</s></div>
+        {% endif %}
+        
         <p class="body-s" style="font-size:12px">{{ block.settings.per_product }}</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>{{ block.settings.bullet_1 }}</li>
@@ -24,12 +51,24 @@
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>{{ block.settings.bullet_3 }}</li>
           {% endif %}
         </ul>
-        <a class="btn {% if block.settings.is_best %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ block.settings.button_url }}">
-          {{ block.settings.button_label }}
-          {% if block.settings.is_best %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
-          {% endif %}
-        </a>
+        
+        {% if block.settings.products != blank %}
+          {% form 'product', block.settings.products.first %}
+            <button type="submit" class="btn {% if block.settings.is_best %}btn-primary{% else %}btn-ghost{% endif %}" style="width:100%; justify-content:center;">
+              {{ block.settings.button_label }}
+              {% if block.settings.is_best %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+              {% endif %}
+            </button>
+          {% endform %}
+        {% else %}
+          <a class="btn {% if block.settings.is_best %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ block.settings.button_url }}">
+            {{ block.settings.button_label }}
+            {% if block.settings.is_best %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+            {% endif %}
+          </a>
+        {% endif %}
       </article>
       {% endfor %}
     </div>
@@ -78,9 +117,15 @@
           "default": "Starter"
         },
         {
+          "type": "product_list",
+          "id": "products",
+          "label": "Select Products (for dynamic price & images)",
+          "limit": 5
+        },
+        {
           "type": "html",
           "id": "tierpix_html",
-          "label": "Tier Pix HTML",
+          "label": "Fallback Pix HTML (if no products)",
           "default": "<span class=\"pimg p-combo2\" role=\"img\"></span>"
         },
         {
@@ -91,14 +136,14 @@
         },
         {
           "type": "text",
-          "id": "price",
-          "label": "Price",
+          "id": "price_fallback",
+          "label": "Price (Fallback)",
           "default": "₹349"
         },
         {
           "type": "text",
-          "id": "compare_at_price",
-          "label": "Compare at Price",
+          "id": "compare_at_price_fallback",
+          "label": "Compare at Price (Fallback)",
           "default": "₹598"
         },
         {
@@ -133,14 +178,19 @@
         {
           "type": "url",
           "id": "button_url",
-          "label": "Button URL"
+          "label": "Fallback Button URL"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Bundle Tiers"
+      "name": "Bundle Tiers",
+      "blocks": [
+        { "type": "tier", "settings": { "tag": "Starter", "qty": "2" } },
+        { "type": "tier", "settings": { "tag": "Most popular", "qty": "3", "is_best": true } },
+        { "type": "tier", "settings": { "tag": "Whole home", "qty": "5" } }
+      ]
     }
   ]
 }

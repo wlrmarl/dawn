@@ -14,7 +14,16 @@
           <div class="frame">
             {% for block in section.blocks %}
               {% if block.type == 'product_slide' %}
-              <span class="pimg {{ block.settings.css_class }} {% if forloop.first %}on{% endif %}" role="img" aria-label="{{ block.settings.alt }}" data-name="{{ block.settings.product_name }}" data-note="{{ block.settings.note }}"></span>
+                {% if block.settings.product != blank %}
+                  <img class="pimg {% if forloop.first %}on{% endif %}" 
+                       src="{{ block.settings.product.featured_image | image_url: width: 400 }}" 
+                       alt="{{ block.settings.product.title | escape }}" 
+                       data-name="{{ block.settings.product.title | escape }}" 
+                       data-note="{{ block.settings.note }}"
+                       style="height:100%; object-fit:contain;" loading="lazy" {{ block.shopify_attributes }}>
+                {% else %}
+                  <span class="pimg {{ block.settings.css_class_fallback }} {% if forloop.first %}on{% endif %}" role="img" aria-label="{{ block.settings.alt_fallback }}" data-name="{{ block.settings.product_name_fallback }}" data-note="{{ block.settings.note }}" {{ block.shopify_attributes }}></span>
+                {% endif %}
               {% endif %}
             {% endfor %}
           </div>
@@ -31,7 +40,7 @@
       <div class="glass-2 stats proof-stats" style="grid-column:1/-1">
         {% for block in section.blocks %}
           {% if block.type == 'stat' %}
-          <div class="stat">
+          <div class="stat" {{ block.shopify_attributes }}>
             <div class="ring">{{ block.settings.value }}</div>
             <h5>{{ block.settings.title }}</h5>
             <p>{{ block.settings.text }}</p>
@@ -84,16 +93,9 @@
       "name": "Product Slide",
       "settings": [
         {
-          "type": "text",
-          "id": "css_class",
-          "label": "CSS Class for Image",
-          "default": "p-kitchen"
-        },
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "Product Name",
-          "default": "Kitchen cleaner"
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
         },
         {
           "type": "text",
@@ -102,8 +104,24 @@
           "default": "Foam lifts grease, no scrubbing"
         },
         {
+          "type": "header",
+          "content": "Fallback if Product is empty"
+        },
+        {
           "type": "text",
-          "id": "alt",
+          "id": "css_class_fallback",
+          "label": "CSS Class",
+          "default": "p-kitchen"
+        },
+        {
+          "type": "text",
+          "id": "product_name_fallback",
+          "label": "Product Name",
+          "default": "Kitchen cleaner"
+        },
+        {
+          "type": "text",
+          "id": "alt_fallback",
           "label": "Alt Text",
           "default": "Purelane foaming kitchen cleaner"
         }
@@ -138,16 +156,10 @@
     {
       "name": "Proof",
       "blocks": [
-        { "type": "product_slide", "settings": { "css_class": "p-kitchen", "product_name": "Kitchen cleaner", "note": "Foam lifts grease, no scrubbing" } },
-        { "type": "product_slide", "settings": { "css_class": "p-tap", "product_name": "Tap & limescale", "note": "Melts hard water stains" } },
-        { "type": "product_slide", "settings": { "css_class": "p-laundry", "product_name": "Laundry detergent", "note": "Tough on odour, soft on fabric" } },
-        { "type": "product_slide", "settings": { "css_class": "p-toilet", "product_name": "Toilet cleaner", "note": "Kills 99.9% of germs" } },
-        { "type": "product_slide", "settings": { "css_class": "p-floor", "product_name": "Floor cleaner", "note": "Neem powered, pet safe" } },
-        { "type": "product_slide", "settings": { "css_class": "p-dish", "product_name": "Dishwash gel", "note": "Cuts grease, kind to hands" } },
+        { "type": "product_slide", "settings": { "css_class_fallback": "p-kitchen", "product_name_fallback": "Kitchen cleaner", "note": "Foam lifts grease, no scrubbing" } },
+        { "type": "product_slide", "settings": { "css_class_fallback": "p-tap", "product_name_fallback": "Tap & limescale", "note": "Melts hard water stains" } },
         { "type": "stat", "settings": { "value": "99.9%", "title": "Germ kill", "text": "Tested against germs and bacteria" } },
-        { "type": "stat", "settings": { "value": "0%", "title": "Sulphates", "text": "No SLS, chlorine or parabens" } },
-        { "type": "stat", "settings": { "value": "100%", "title": "Plant based", "text": "Cleansers derived from plants" } },
-        { "type": "stat", "settings": { "value": "4.8", "title": "Rated", "text": "Across 8,000+ verified reviews" } }
+        { "type": "stat", "settings": { "value": "100%", "title": "Plant based", "text": "Cleansers derived from plants" } }
       ]
     }
   ]

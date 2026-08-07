@@ -10,9 +10,15 @@
       </div>
       <div class="stripwrap">
         <div class="rangerow">
-          {% for block in section.blocks %}
-          <span class="pimg {{ block.settings.css_class }}" role="img" aria-label="{{ block.settings.alt_text }}"></span>
-          {% endfor %}
+          {% if section.settings.collection != blank %}
+            {% for prod in section.settings.collection.products limit: section.settings.limit %}
+              <img class="pimg" src="{{ prod.featured_image | image_url: width: 250 }}" alt="{{ prod.title | escape }}" loading="lazy" style="height:100%; object-fit:contain;">
+            {% endfor %}
+          {% else %}
+            {% for block in section.blocks %}
+              <span class="pimg {{ block.settings.css_class }}" role="img" aria-label="{{ block.settings.alt_text }}"></span>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
       <p class="striphint">{{ section.settings.hint }}</p>
@@ -48,12 +54,26 @@
       "id": "hint",
       "label": "Hint",
       "default": "Swipe to see the full shelf"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to display"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 10,
+      "label": "Maximum products to show"
     }
   ],
   "blocks": [
     {
       "type": "product_image",
-      "name": "Product Image",
+      "name": "Fallback Static Image",
       "settings": [
         {
           "type": "text",
@@ -79,11 +99,7 @@
         { "type": "product_image", "settings": { "css_class": "p-kitchen", "alt_text": "Kitchen cleaner" } },
         { "type": "product_image", "settings": { "css_class": "p-toilet", "alt_text": "Toilet cleaner" } },
         { "type": "product_image", "settings": { "css_class": "p-laundry", "alt_text": "Laundry detergent" } },
-        { "type": "product_image", "settings": { "css_class": "p-dish", "alt_text": "Dishwash gel" } },
-        { "type": "product_image", "settings": { "css_class": "p-metal", "alt_text": "Copper cleaner" } },
-        { "type": "product_image", "settings": { "css_class": "p-wm", "alt_text": "Washing machine cleaner" } },
-        { "type": "product_image", "settings": { "css_class": "p-handwash", "alt_text": "Handwash" } },
-        { "type": "product_image", "settings": { "css_class": "p-eraser", "alt_text": "Magic eraser" } }
+        { "type": "product_image", "settings": { "css_class": "p-dish", "alt_text": "Dishwash gel" } }
       ]
     }
   ]

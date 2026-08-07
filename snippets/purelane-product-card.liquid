@@ -1,0 +1,42 @@
+{% comment %}
+  Accepts:
+  - product: {Object} Product Liquid object
+  - animation_delay: {String} Optional class for rv-d1, rv-d2 etc.
+{% endcomment %}
+
+<article class="glass card rv {{ animation_delay }}">
+  <div class="shot">
+    {% if product.metafields.custom.badge_label != blank %}
+      <span class="pill">{{ product.metafields.custom.badge_label }}</span>
+    {% endif %}
+    
+    <!-- Render the SVG or Image -->
+    <img class="pimg" src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" style="height: 122px; width: auto; object-fit: contain;">
+  </div>
+  
+  <h4>{{ product.title }}</h4>
+  
+  <!-- Star Rating: Hardcoded defaults fallback to Metafields if they exist -->
+  <div class="rate">
+    <b>★ {{ product.metafields.custom.star_rating | default: "4.8" }}</b> · {{ product.metafields.custom.review_count | default: "237" }} reviews
+  </div>
+  
+  <div class="pr">
+    <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+    {% if product.compare_at_price > product.price %}
+      <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+      
+      <!-- Liquid Math: Calculate Discount Percentage Dynamically -->
+      {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+      <em>{{ discount }}% off</em>
+    {% endif %}
+  </div>
+
+  <!-- Native Shopify Add to Cart Form -->
+  {% form 'product', product %}
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <button type="submit" class="btn btn-ghost btn-sm" style="width: 100%; justify-content: center;" {% unless product.available %}disabled{% endunless %}>
+      {% if product.available %}Add to cart{% else %}Sold Out{% endif %}
+    </button>
+  {% endform %}
+</article>

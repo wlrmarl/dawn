@@ -8,31 +8,53 @@
     </div>
     <div class="comborail rv">
       {% for block in section.blocks %}
-      <article class="glass combo {% if block.settings.is_hero %}hero-combo{% endif %}">
+      <article class="glass combo {% if block.settings.is_hero %}hero-combo{% endif %}" {{ block.shopify_attributes }}>
         <div class="tray">
-          <span class="save">{{ block.settings.save_text }}</span>
+          {% assign total_price = 0 %}
+          {% assign total_compare = 0 %}
+          {% for prod in block.settings.products %}
+            {% assign total_price = total_price | plus: prod.price %}
+            {% if prod.compare_at_price > prod.price %}
+              {% assign total_compare = total_compare | plus: prod.compare_at_price %}
+            {% else %}
+              {% assign total_compare = total_compare | plus: prod.price %}
+            {% endif %}
+          {% endfor %}
+          {% if total_compare > total_price %}
+            {% assign save_amount = total_compare | minus: total_price | money_without_trailing_zeros %}
+            <span class="save">You save {{ save_amount }}</span>
+          {% endif %}
+          
           {% if block.settings.flag_text != blank %}
           <span class="flag">{{ block.settings.flag_text }}</span>
           {% endif %}
           <div class="stack">
-            <span class="it"><span class="pimg {{ block.settings.prod1_css }}" role="img"></span><span>{{ block.settings.prod1_note }}</span></span>
-            <span class="plus" aria-hidden="true">+</span>
-            <span class="it"><span class="pimg {{ block.settings.prod2_css }}" role="img"></span><span>{{ block.settings.prod2_note }}</span></span>
-            <span class="plus" aria-hidden="true">+</span>
-            <span class="it"><span class="pimg {{ block.settings.prod3_css }}" role="img"></span><span>{{ block.settings.prod3_note }}</span></span>
+            {% for prod in block.settings.products %}
+              <span class="it">
+                <img class="pimg" src="{{ prod.featured_image | image_url: width: 200 }}" alt="{{ prod.title | escape }}" style="height:100%; object-fit:contain;" loading="lazy">
+                <span>{{ prod.title }}</span>
+              </span>
+              {% unless forloop.last %}
+              <span class="plus" aria-hidden="true">+</span>
+              {% endunless %}
+            {% endfor %}
           </div>
         </div>
         <div class="body">
           <h3>{{ block.settings.title }}</h3>
-          <div class="cnt">{{ block.settings.item_count }}</div>
+          <div class="cnt">{{ block.settings.products | size }} products</div>
           <p class="inc">{{ block.settings.includes_text }}</p>
           <div class="prow">
-            <strong>{{ block.settings.price }}</strong>
-            <s>{{ block.settings.compare_at_price }}</s>
-            <em>{{ block.settings.save_pill }}</em>
+            <strong>{{ total_price | money_without_trailing_zeros }}</strong>
+            {% if total_compare > total_price %}
+              <s>{{ total_compare | money_without_trailing_zeros }}</s>
+              <em>Save {{ save_amount }}</em>
+            {% endif %}
           </div>
           <div class="fine">{{ block.settings.fine_print }}</div>
-          <a class="btn {% if block.settings.is_hero %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ block.settings.button_url }}">{{ block.settings.button_label }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></a>
+          {% form 'product', block.settings.products.first %}
+            <button type="submit" class="btn {% if block.settings.is_hero %}btn-primary{% else %}btn-ghost{% endif %}">{{ block.settings.button_label }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></button>
+          {% endform %}
         </div>
       </article>
       {% endfor %}
@@ -79,12 +101,6 @@
         },
         {
           "type": "text",
-          "id": "save_text",
-          "label": "Save Text",
-          "default": "You save ₹398"
-        },
-        {
-          "type": "text",
           "id": "flag_text",
           "label": "Flag Text (Optional)"
         },
@@ -95,34 +111,10 @@
           "default": "Kitchen essentials"
         },
         {
-          "type": "text",
-          "id": "item_count",
-          "label": "Item Count",
-          "default": "3 products"
-        },
-        {
           "type": "textarea",
           "id": "includes_text",
           "label": "Includes Text",
-          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately."
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "label": "Price",
-          "default": "₹499"
-        },
-        {
-          "type": "text",
-          "id": "compare_at_price",
-          "label": "Compare at Price",
-          "default": "₹897"
-        },
-        {
-          "type": "text",
-          "id": "save_pill",
-          "label": "Save Pill Text",
-          "default": "Save ₹398"
+          "default": "Includes products for a sparkling kitchen, no need to pick separately."
         },
         {
           "type": "text",
@@ -137,56 +129,21 @@
           "default": "Shop bundle"
         },
         {
-          "type": "url",
-          "id": "button_url",
-          "label": "Button URL"
-        },
-        {
-          "type": "header",
-          "content": "Products in tray"
-        },
-        {
-          "type": "text",
-          "id": "prod1_css",
-          "label": "Product 1 CSS Class",
-          "default": "p-kitchen"
-        },
-        {
-          "type": "text",
-          "id": "prod1_note",
-          "label": "Product 1 Note",
-          "default": "Cuts grease instantly"
-        },
-        {
-          "type": "text",
-          "id": "prod2_css",
-          "label": "Product 2 CSS Class",
-          "default": "p-dish"
-        },
-        {
-          "type": "text",
-          "id": "prod2_note",
-          "label": "Product 2 Note",
-          "default": "Squeaky clean dishes"
-        },
-        {
-          "type": "text",
-          "id": "prod3_css",
-          "label": "Product 3 CSS Class",
-          "default": "p-tap"
-        },
-        {
-          "type": "text",
-          "id": "prod3_note",
-          "label": "Product 3 Note",
-          "default": "Melts hard water stains"
+          "type": "product_list",
+          "id": "products",
+          "label": "Products in Combo (Max 5)",
+          "limit": 5
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Combo Rail"
+      "name": "Combo Rail",
+      "blocks": [
+        { "type": "combo", "settings": { "title": "Kitchen essentials", "flag_text": "Most popular" } },
+        { "type": "combo", "settings": { "title": "Complete home bundle", "is_hero": true, "flag_text": "Best value" } }
+      ]
     }
   ]
 }
