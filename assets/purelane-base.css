@@ -24,12 +24,15 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   font-family:'Inter',system-ui,-apple-system,sans-serif;
-  background:var(--ink);
+  background:var(--ink) !important;
   color:var(--paper);
   line-height:1.62;
   -webkit-font-smoothing:antialiased;
   overflow-x:clip;
   padding-bottom:74px;
+}
+.shopify-section, main#MainContent {
+  background: transparent !important;
 }
 @media(min-width:960px){body{padding-bottom:0}}
 img,svg{display:block;max-width:100%}
