@@ -56,10 +56,10 @@
               {% assign delay_classes = "d1,d2,d3" | split: "," %}
               {% for prod in block.settings.products %}
                 {% assign idx = forloop.index0 %}
-                <img class="hp {{ letter_classes[idx] }} {{ delay_classes[idx] }}" 
-                     src="{{ prod.featured_image | image_url: width: 600 }}" 
-                     alt="{{ prod.title }}" 
-                     loading="eager">
+                <div class="hp {{ letter_classes[idx] }} {{ delay_classes[idx] }}" 
+                     style="background-image: url('{{ prod.featured_image | image_url: width: 600 }}'); aspect-ratio: {{ prod.featured_image.aspect_ratio | default: 0.33 }};"
+                     role="img" aria-label="{{ prod.title | escape }}">
+                </div>
               {% endfor %}
               
               <div class="glass-2 ptag">

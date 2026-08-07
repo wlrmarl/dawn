@@ -15,7 +15,7 @@
         <div class="tierpix {% if block.settings.products.count >= 5 %}five{% endif %}" aria-hidden="true">
           {% if block.settings.products != blank %}
             {% for prod in block.settings.products %}
-              <img class="pimg" src="{{ prod.featured_image | image_url: width: 200 }}" alt="{{ prod.title | escape }}" loading="lazy">
+              <span class="pimg" style="background-image: url('{{ prod.featured_image | image_url: width: 200 }}'); aspect-ratio: {{ prod.featured_image.aspect_ratio | default: 0.6 }};" role="img" aria-label="{{ prod.title | escape }}"></span>
             {% endfor %}
           {% else %}
             {{ block.settings.tierpix_html }}
