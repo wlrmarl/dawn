@@ -1,0 +1,193 @@
+<section class="sec" id="combos" data-scene="3">
+  <div class="wrap">
+    <div class="panel-head rv">
+      <span class="kicker">{{ section.settings.kicker }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.heading }}</h2>
+      <div class="rule"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg><i></i></div>
+      <p class="lede" style="margin:14px auto 0">{{ section.settings.text }}</p>
+    </div>
+    <div class="comborail rv">
+      {% for block in section.blocks %}
+      <article class="glass combo {% if block.settings.is_hero %}hero-combo{% endif %}">
+        <div class="tray">
+          <span class="save">{{ block.settings.save_text }}</span>
+          {% if block.settings.flag_text != blank %}
+          <span class="flag">{{ block.settings.flag_text }}</span>
+          {% endif %}
+          <div class="stack">
+            <span class="it"><span class="pimg {{ block.settings.prod1_css }}" role="img"></span><span>{{ block.settings.prod1_note }}</span></span>
+            <span class="plus" aria-hidden="true">+</span>
+            <span class="it"><span class="pimg {{ block.settings.prod2_css }}" role="img"></span><span>{{ block.settings.prod2_note }}</span></span>
+            <span class="plus" aria-hidden="true">+</span>
+            <span class="it"><span class="pimg {{ block.settings.prod3_css }}" role="img"></span><span>{{ block.settings.prod3_note }}</span></span>
+          </div>
+        </div>
+        <div class="body">
+          <h3>{{ block.settings.title }}</h3>
+          <div class="cnt">{{ block.settings.item_count }}</div>
+          <p class="inc">{{ block.settings.includes_text }}</p>
+          <div class="prow">
+            <strong>{{ block.settings.price }}</strong>
+            <s>{{ block.settings.compare_at_price }}</s>
+            <em>{{ block.settings.save_pill }}</em>
+          </div>
+          <div class="fine">{{ block.settings.fine_print }}</div>
+          <a class="btn {% if block.settings.is_hero %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ block.settings.button_url }}">{{ block.settings.button_label }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="swipecue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>Swipe for more combos</div>
+    <p class="railnote">Tapping "Shop bundle" opens the bundle picker with these products already added. You can still swap anything before you pay.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Combo Rail",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo",
+      "name": "Combo",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_hero",
+          "label": "Is Hero Combo?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "save_text",
+          "label": "Save Text",
+          "default": "You save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "flag_text",
+          "label": "Flag Text (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "text",
+          "id": "item_count",
+          "label": "Item Count",
+          "default": "3 products"
+        },
+        {
+          "type": "textarea",
+          "id": "includes_text",
+          "label": "Includes Text",
+          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately."
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "₹499"
+        },
+        {
+          "type": "text",
+          "id": "compare_at_price",
+          "label": "Compare at Price",
+          "default": "₹897"
+        },
+        {
+          "type": "text",
+          "id": "save_pill",
+          "label": "Save Pill Text",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "fine_print",
+          "label": "Fine Print",
+          "default": "Inclusive of all taxes & COD available"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop bundle"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Products in tray"
+        },
+        {
+          "type": "text",
+          "id": "prod1_css",
+          "label": "Product 1 CSS Class",
+          "default": "p-kitchen"
+        },
+        {
+          "type": "text",
+          "id": "prod1_note",
+          "label": "Product 1 Note",
+          "default": "Cuts grease instantly"
+        },
+        {
+          "type": "text",
+          "id": "prod2_css",
+          "label": "Product 2 CSS Class",
+          "default": "p-dish"
+        },
+        {
+          "type": "text",
+          "id": "prod2_note",
+          "label": "Product 2 Note",
+          "default": "Squeaky clean dishes"
+        },
+        {
+          "type": "text",
+          "id": "prod3_css",
+          "label": "Product 3 CSS Class",
+          "default": "p-tap"
+        },
+        {
+          "type": "text",
+          "id": "prod3_note",
+          "label": "Product 3 Note",
+          "default": "Melts hard water stains"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Combo Rail"
+    }
+  ]
+}
+{% endschema %}
