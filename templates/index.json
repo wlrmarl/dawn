@@ -1,44 +1,126 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "purelane-hero"
+      "type": "purelane-hero",
+      "blocks": {
+        "product_slide_EXVchq": {
+          "type": "product_slide",
+          "settings": {
+            "slide_label": "Single bottle",
+            "products": [],
+            "discount_text": "33% off"
+          }
+        }
+      },
+      "block_order": [
+        "product_slide_EXVchq"
+      ],
+      "settings": {
+        "heading": "Clean\nThat\nLasts",
+        "text": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
+        "primary_label": "Shop now",
+        "primary_url": "",
+        "secondary_label": "How it works",
+        "secondary_url": ""
+      }
     },
     "ticker": {
-      "type": "ticker"
+      "type": "ticker",
+      "settings": {}
     },
     "review_marquee": {
-      "type": "review-marquee"
+      "type": "review-marquee",
+      "settings": {
+        "kicker": "That's what they said",
+        "rating": "4.8",
+        "rating_text": "from 8,000+ reviews",
+        "loved_by_text": "Loved by",
+        "loved_by_bold": "12 lakh+ homes"
+      }
     },
     "ingredients": {
-      "type": "ingredients"
+      "type": "ingredients",
+      "settings": {
+        "heading": "Sourced from nature"
+      }
     },
     "pillars": {
-      "type": "pillars"
+      "type": "pillars",
+      "settings": {}
     },
     "proof": {
-      "type": "proof"
+      "type": "proof",
+      "settings": {
+        "kicker": "Why it works",
+        "heading": "Tough on grime.\nGentle on everything else.",
+        "text": "Every formula is built on plant-derived cleansers and essential oils. It behaves exactly like the cleaner you are used to, minus the things you never signed up for.",
+        "button_label": "See the ingredient list",
+        "button_url": ""
+      }
     },
     "combo_rail": {
-      "type": "combo-rail"
+      "type": "combo-rail",
+      "settings": {
+        "kicker": "Pre-built to save you money",
+        "heading": "Best selling combos",
+        "text": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+      }
     },
     "bundle_tiers": {
-      "type": "bundle-tiers"
+      "type": "bundle-tiers",
+      "settings": {
+        "kicker": "Build your bundle",
+        "heading": "One box. Every room.",
+        "text": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+      }
     },
     "product_shelf": {
-      "type": "product-shelf"
+      "type": "product-shelf",
+      "settings": {
+        "kicker": "Bestsellers",
+        "heading": "Loved by 30,000 homes",
+        "collection": "",
+        "product_limit": 4
+      }
     },
     "range_strip": {
-      "type": "range-strip"
+      "type": "range-strip",
+      "settings": {
+        "kicker": "The full range",
+        "heading": "Every room, one shelf",
+        "text": "Floors, taps, kitchen, laundry, bathroom and hands. Fourteen plant-based formulas that replace every harsh bottle under your sink.",
+        "hint": "Swipe to see the full shelf",
+        "collection": "",
+        "limit": 10
+      }
     },
     "why_bundles": {
-      "type": "why-bundles"
+      "type": "why-bundles",
+      "settings": {
+        "kicker": "The smarter way to shop",
+        "heading": "Why bundles beat buying single"
+      }
     },
     "bundle_categories": {
-      "type": "bundle-categories"
+      "type": "bundle-categories",
+      "settings": {
+        "kicker": "Bundle categories",
+        "heading": "Find the right bundle for you"
+      }
     }
   },
   "order": [
     "hero",
+    "ticker",
     "review_marquee",
     "ingredients",
     "pillars",
