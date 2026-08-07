@@ -39,7 +39,6 @@
   },
   "order": [
     "hero",
-    "ticker",
     "review_marquee",
     "ingredients",
     "pillars",
