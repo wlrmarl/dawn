@@ -16,7 +16,11 @@
           "type": "product_slide",
           "settings": {
             "slide_label": "Single bottle",
-            "products": [],
+            "products": [
+              "kitchen-cleaner-foaming",
+              "toilet-cleaner",
+              "tap-cleaner-limescale-remover"
+            ],
             "discount_text": "33% off"
           }
         }
