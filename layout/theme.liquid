@@ -326,7 +326,7 @@
     <script src="{{ 'purelane-animations.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     {% render 'purelane-scenes' %}
     {% render 'purelane-rail' %}
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">

@@ -59,8 +59,7 @@
                 <img class="hp {{ letter_classes[idx] }} {{ delay_classes[idx] }}" 
                      src="{{ prod.featured_image | image_url: width: 600 }}" 
                      alt="{{ prod.title }}" 
-                     loading="eager"
-                     style="height: 100%; width: auto; object-fit: contain;">
+                     loading="eager">
               {% endfor %}
               
               <div class="glass-2 ptag">

@@ -31,7 +31,7 @@
           <div class="stack">
             {% for prod in block.settings.products %}
               <span class="it">
-                <img class="pimg" src="{{ prod.featured_image | image_url: width: 200 }}" alt="{{ prod.title | escape }}" style="height:100%; object-fit:contain;" loading="lazy">
+                <img class="pimg" src="{{ prod.featured_image | image_url: width: 200 }}" alt="{{ prod.title | escape }}" loading="lazy">
                 <span>{{ prod.title }}</span>
               </span>
               {% unless forloop.last %}
