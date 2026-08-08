@@ -12,6 +12,30 @@
     "hero": {
       "type": "purelane-hero",
       "blocks": {
+        "trust_badge_zegtgK": {
+          "type": "trust_badge",
+          "settings": {
+            "svg_icon": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8.4\"></circle><path d=\"M6.4 17.6 17.6 6.4\"></path></svg>",
+            "title": "Zero Harsh Chemicals",
+            "title_inline": "Zero Harsh Chemicals"
+          }
+        },
+        "trust_badge_9p7Fpa": {
+          "type": "trust_badge",
+          "settings": {
+            "svg_icon": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z\"></path><path d=\"m9 12 2.2 2.2L15.4 10\"></path></svg>",
+            "title": "Safer for kids",
+            "title_inline": "safer for kids & pets"
+          }
+        },
+        "trust_badge_cbaMDc": {
+          "type": "trust_badge",
+          "settings": {
+            "svg_icon": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z\"></path><path d=\"M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z\"></path></svg>",
+            "title": "Plantpowered",
+            "title_inline": "Plant powered"
+          }
+        },
         "product_slide_EXVchq": {
           "type": "product_slide",
           "settings": {
@@ -26,6 +50,9 @@
         }
       },
       "block_order": [
+        "trust_badge_zegtgK",
+        "trust_badge_9p7Fpa",
+        "trust_badge_cbaMDc",
         "product_slide_EXVchq"
       ],
       "settings": {
