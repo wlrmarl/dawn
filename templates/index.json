@@ -73,6 +73,27 @@
     },
     "combo_rail": {
       "type": "combo-rail",
+      "blocks": {
+        "combo_fwUmxQ": {
+          "type": "combo",
+          "settings": {
+            "is_hero": true,
+            "flag_text": "",
+            "title": "Kitchen essentials",
+            "includes_text": "Includes products for a sparkling kitchen, no need to pick separately.",
+            "fine_print": "Inclusive of all taxes & COD available",
+            "button_label": "Shop bundle",
+            "products": [
+              "purelane-plant-based-natural-copper-bronze-brass-deep-cleaning-polish-and-restorer-pump-bottle-300ml",
+              "kitchen-cleaner-foaming",
+              "dishwash-gel"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "combo_fwUmxQ"
+      ],
       "settings": {
         "kicker": "Pre-built to save you money",
         "heading": "Best selling combos",
@@ -121,6 +142,18 @@
     },
     "range_strip": {
       "type": "range-strip",
+      "blocks": {
+        "product_image_xrKekK": {
+          "type": "product_image",
+          "settings": {
+            "css_class": "p-floor",
+            "alt_text": "Purelane natural herbal floor cleaner"
+          }
+        }
+      },
+      "block_order": [
+        "product_image_xrKekK"
+      ],
       "settings": {
         "kicker": "The full range",
         "heading": "Every room, one shelf",
