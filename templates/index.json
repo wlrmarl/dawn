@@ -81,6 +81,29 @@
     },
     "bundle_tiers": {
       "type": "bundle-tiers",
+      "blocks": {
+        "tier_wPnVLx": {
+          "type": "tier",
+          "settings": {
+            "is_best": false,
+            "tag": "Starter",
+            "products": [],
+            "tierpix_html": "<span class=\"pimg p-combo2\" role=\"img\"></span>",
+            "qty": "2",
+            "price_fallback": "₹349",
+            "compare_at_price_fallback": "₹598",
+            "per_product": "Flat ₹174 per product",
+            "bullet_1": "Pick any two products",
+            "bullet_2": "Free shipping across India",
+            "bullet_3": "",
+            "button_label": "Build this box",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "tier_wPnVLx"
+      ],
       "settings": {
         "kicker": "Build your bundle",
         "heading": "One box. Every room.",
@@ -92,7 +115,7 @@
       "settings": {
         "kicker": "Bestsellers",
         "heading": "Loved by 30,000 homes",
-        "collection": "",
+        "collection": "bathroom-bundle",
         "product_limit": 4
       }
     },
